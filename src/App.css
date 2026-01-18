@@ -1,0 +1,26 @@
+.favorites-btn {
+  position: absolute !important;
+  top: 8px !important;
+  right: 8px !important;
+  color: white !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  z-index: 1 !important;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+  }
+}
+
+.show-card {
+  max-width: 209px;
+  position: relative;
+  transform: scale(1);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease !important;
+  z-index: 1;
+  &:hover {
+    transform: scale(1.15);
+    z-index: 10;
+    box-shadow: 10;
+  }
+}
