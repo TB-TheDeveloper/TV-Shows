@@ -5,12 +5,15 @@ import App from "./App.tsx";
 import AppContextProvider from "./AppContextProvider.tsx";
 import MenuBar from "./MenuBar.tsx";
 import "./App.css";
+import { BrowserRouter } from "react-router-dom";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <AppContextProvider>
-      <MenuBar />
-      <App />
+      <BrowserRouter>
+        <MenuBar />
+        <App />
+      </BrowserRouter>
     </AppContextProvider>
   </StrictMode>,
 );

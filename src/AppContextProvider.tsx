@@ -1,9 +1,12 @@
-import { createContext, useMemo, useState } from "react";
+import { createContext, useEffect, useMemo, useState } from "react";
+import type { Shows } from "./Types";
 
 interface AppContextType {
   favorites: number[];
   isFavorite: (id: number) => boolean;
   setFavorites: React.Dispatch<React.SetStateAction<number[]>>;
+  setShows: React.Dispatch<React.SetStateAction<Shows[]>>;
+  shows: Shows[];
   toggleFavorite: (id: number) => void;
 }
 
@@ -11,13 +14,16 @@ export const AppContext = createContext<AppContextType>({
   favorites: [],
   isFavorite: () => false,
   setFavorites: () => [],
+  setShows: () => [],
   toggleFavorite: () => {},
+  shows: [],
 });
 
 const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [favorites, setFavorites] = useState<number[]>([]);
+  const [shows, setShows] = useState<Shows[]>([]);
 
   const toggleFavorite = (id: number) => {
     setFavorites((prevFavorites) => {
@@ -30,10 +36,24 @@ const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({
     });
   };
 
+  useEffect(() => {
+    const stored = localStorage.getItem("favorites");
+    if (stored) {
+      setFavorites(JSON.parse(stored));
+    }
+  }, []);
+
   const isFavorite = (id: number) => favorites.includes(id);
 
   const value = useMemo(
-    () => ({ favorites, toggleFavorite, isFavorite, setFavorites }),
+    () => ({
+      favorites,
+      toggleFavorite,
+      isFavorite,
+      setFavorites,
+      shows,
+      setShows,
+    }),
     [favorites],
   );
 

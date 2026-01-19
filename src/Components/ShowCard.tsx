@@ -1,5 +1,5 @@
 import { Box, Card, CardMedia, IconButton, Typography } from "@mui/material";
-import React, { use, useContext } from "react";
+import React, { useContext } from "react";
 
 import type { Shows } from "../Types";
 import { Favorite } from "@mui/icons-material";
@@ -26,24 +26,7 @@ const ShowCard: React.FC<ShowCardProps> = ({ show }) => {
       >
         <Favorite color={isFavorite(show.id) ? "error" : "inherit"} />
       </IconButton>
-      <Box
-        sx={{
-          position: "absolute",
-          inset: 0,
-          background:
-            "linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.2))",
-          color: "white",
-          opacity: 0,
-          transition: "opacity 0.3s ease",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-end",
-          p: 2,
-          "&:hover": {
-            opacity: 1,
-          },
-        }}
-      >
+      <Box className="show-card-box">
         <Typography variant="subtitle1" fontWeight="bold">
           {show.name}
         </Typography>
@@ -54,14 +37,7 @@ const ShowCard: React.FC<ShowCardProps> = ({ show }) => {
 
         <Typography
           variant="body2"
-          sx={{
-            fontSize: 11,
-            mt: 1,
-            display: "-webkit-box",
-            WebkitLineClamp: 4,
-            WebkitBoxOrient: "vertical",
-            overflow: "hidden",
-          }}
+          className="show-card-box-summary"
           dangerouslySetInnerHTML={{ __html: show.summary ?? "" }}
         />
       </Box>
