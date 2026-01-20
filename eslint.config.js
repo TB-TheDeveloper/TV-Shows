@@ -1,33 +1,35 @@
 import js from "@eslint/js";
-import { defineConfig, globalIgnores } from "eslint/config";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
-export default defineConfig([
-  globalIgnores(["dist"]),
+export default [
   {
-    plugins: {
-      "simple-import-sort": [simpleImportSort, , { groups: [["^.*$"]] }],
-    },
-    rules: {
-      "simple-import-sort/imports": ["warn"],
-      "simple-import-sort/exports": ["warn"],
-    },
+    ignores: ["dist"],
   },
+
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  reactHooks.configs.flat.recommended,
+  reactRefresh.configs.vite,
+
   {
     files: ["**/*.{ts,tsx}"],
-    extends: [
-      js.configs.recommended,
-      tseslint.configs.recommended,
-      reactHooks.configs.flat.recommended,
-      reactRefresh.configs.vite,
-    ],
+    plugins: {
+      "simple-import-sort": simpleImportSort,
+    },
+    rules: {
+      "simple-import-sort/imports": "warn",
+      "simple-import-sort/exports": "warn",
+      "react-hooks/rules-of-hooks": "warn",
+      "react-hooks/exhaustive-deps": "warn",
+      "@typescript-eslint/no-unused-vars": "warn",
+    },
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
     },
   },
-]);
+];

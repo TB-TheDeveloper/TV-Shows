@@ -1,11 +1,12 @@
+import { FavoriteBorder } from "@mui/icons-material";
+import { Box, Card, Grid, Typography } from "@mui/material";
 import React, { useContext } from "react";
+
 import { AppContext } from "../AppContextProvider";
 import ShowCard from "./ShowCard";
-import { Box, Card, Grid, Typography } from "@mui/material";
-import { FavoriteBorder } from "@mui/icons-material";
 
 const Favorites: React.FC = () => {
-  const { favorites, setFavorites, setShows, shows } = useContext(AppContext);
+  const { favorites, shows } = useContext(AppContext);
 
   return (
     <div>

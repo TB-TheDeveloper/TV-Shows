@@ -1,9 +1,9 @@
+import { Favorite } from "@mui/icons-material";
 import { Box, Card, CardMedia, IconButton, Typography } from "@mui/material";
 import React, { useContext } from "react";
 
-import type { Shows } from "../Types";
-import { Favorite } from "@mui/icons-material";
 import { AppContext } from "../AppContextProvider";
+import type { Shows } from "../Types";
 
 interface ShowCardProps {
   show: Shows;

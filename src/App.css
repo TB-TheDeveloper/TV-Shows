@@ -21,6 +21,10 @@ body {
   }
 }
 
+.opacity-05:hover {
+  opacity: 0.5 !important;
+}
+
 .show-card {
   position: relative;
   transform: scale(1);
@@ -61,6 +65,22 @@ body {
   overflow: hidden;
 }
 
-.opacity-05:hover {
-  opacity: 0.5 !important;
+.menu-bar-search-input {
+  width: 50% !important;
+}
+
+.menu-bar-search-input input {
+  color: white !important;
+}
+
+.menu-bar-search-input .MuiOutlinedInput-notchedOutline,
+.menu-bar-search-input:hover .MuiOutlinedInput-notchedOutline,
+.menu-bar-search-input.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: white !important;
+}
+
+.menu-bar-search-input input::placeholder,
+.menu-bar-search-input .MuiSvgIcon-root {
+  color: rgb(86, 84, 84);
+  opacity: 1;
 }
