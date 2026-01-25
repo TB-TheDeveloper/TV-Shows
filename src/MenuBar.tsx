@@ -68,17 +68,17 @@ const MenuBar: React.FC = () => {
           color="inherit"
           className="opacity-05"
           component={Link}
-          to="/genre"
+          to="/favorites"
         >
-          Genre
+          Favorites
         </Button>
         <Button
           color="inherit"
           className="opacity-05"
           component={Link}
-          to="/favorites"
+          to="/login"
         >
-          Favorites
+          Login/LoginOut
         </Button>
       </Toolbar>
     </AppBar>

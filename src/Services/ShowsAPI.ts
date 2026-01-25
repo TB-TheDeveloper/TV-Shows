@@ -1,11 +1,33 @@
-import type { Shows } from "../Types";
+import type { Cast, Gallery, Show } from "../Types";
 import { baseURL } from "./Library";
 
 interface ShowsAPIProps {
-  getShowsAPI: () => Promise<Shows[]>;
+  getCastsAPI: (showID: number) => Promise<Cast[]>;
+  getGalleryAPI: (showID: number) => Promise<Gallery[]>;
+  getShowsAPI: () => Promise<Show[]>;
 }
 
 const ShowsAPI = (): ShowsAPIProps => {
+  const getCastsAPI = async (showID: number) => {
+    const response = await fetch(`${baseURL}/shows/${showID}/cast`);
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch casts");
+    }
+
+    return response.json();
+  };
+
+  const getGalleryAPI = async (showID: number) => {
+    const response = await fetch(`${baseURL}/shows/${showID}/images`);
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch gallery");
+    }
+
+    return response.json();
+  };
+
   const getShowsAPI = async () => {
     const response = await fetch(`${baseURL}/shows?page=0`);
 
@@ -17,6 +39,8 @@ const ShowsAPI = (): ShowsAPIProps => {
   };
 
   return {
+    getCastsAPI,
+    getGalleryAPI,
     getShowsAPI,
   };
 };

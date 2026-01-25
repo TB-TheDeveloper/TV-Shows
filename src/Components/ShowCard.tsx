@@ -1,12 +1,14 @@
 import { Favorite } from "@mui/icons-material";
 import { Box, Card, CardMedia, IconButton, Typography } from "@mui/material";
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 
 import { AppContext } from "../AppContextProvider";
-import type { Shows } from "../Types";
+import { stripTags } from "../Services/Library";
+import type { Show } from "../Types";
 
 interface ShowCardProps {
-  show: Shows;
+  show: Show;
 }
 
 const ShowCard: React.FC<ShowCardProps> = ({ show }) => {
@@ -26,7 +28,11 @@ const ShowCard: React.FC<ShowCardProps> = ({ show }) => {
       >
         <Favorite color={isFavorite(show.id) ? "error" : "inherit"} />
       </IconButton>
-      <Box className="show-card-box">
+      <Box
+        component={Link}
+        to={`show/${show.id}/${encodeURIComponent(show.name.toLowerCase().split(" ").join("-"))}`}
+        className="show-card-box"
+      >
         <Typography variant="subtitle1" fontWeight="bold">
           {show.name}
         </Typography>
@@ -35,11 +41,9 @@ const ShowCard: React.FC<ShowCardProps> = ({ show }) => {
           ⭐ {show.rating.average ?? "N/A"}
         </Typography>
 
-        <Typography
-          variant="body2"
-          className="show-card-box-summary"
-          dangerouslySetInnerHTML={{ __html: show.summary ?? "" }}
-        />
+        <Typography variant="body2" className="show-card-box-summary">
+          {stripTags(show.summary)}
+        </Typography>
       </Box>
     </Card>
   );

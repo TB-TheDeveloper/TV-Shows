@@ -1,3 +1,18 @@
+export interface Cast {
+  character: Character;
+  person: Person;
+  self: boolean;
+  voice: boolean;
+}
+
+interface Character {
+  id: number;
+  url: string;
+  name: string;
+  image: Image;
+  _links: Link;
+}
+
 interface Country {
   name: string;
   code: string;
@@ -8,6 +23,24 @@ interface Externals {
   tvrage: number | null;
   thetvdb: number | null;
   imdb: string | null;
+}
+
+export interface Gallery {
+  id: number;
+  type: string;
+  main: boolean;
+  resolutions: GalleryImage;
+}
+
+interface GalleryImage {
+  medium: GalleryImageSpec;
+  original: GalleryImageSpec;
+}
+
+interface GalleryImageSpec {
+  height: number;
+  width: number;
+  url: string;
 }
 
 interface Image {
@@ -32,6 +65,19 @@ interface Network {
   officialSite: string | null;
 }
 
+interface Person {
+  id: number;
+  url: string;
+  name: string;
+  country: Country;
+  birthday: string;
+  deathday: string | null;
+  gender: string;
+  image: Image;
+  updated: number;
+  _links: Link;
+}
+
 interface Rating {
   average: number | null;
 }
@@ -41,7 +87,7 @@ interface Schedule {
   days: string[];
 }
 
-export interface Shows {
+export interface Show {
   _links: Links;
   averageRuntime: number | null;
   dvdCountry: Country | null;

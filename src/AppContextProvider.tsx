@@ -1,27 +1,36 @@
 import { createContext, useEffect, useMemo, useState } from "react";
 
-import type { Shows } from "./Types";
+import type { Cast, Gallery, Show } from "./Types";
 
 interface AppContextType {
   favorites: number[];
+  casts: Cast[];
+  gallery: Gallery[];
   isFavorite: (id: number) => boolean;
-  displayedShows: Shows[];
+  displayedShows: Show[];
   searchTerm: string;
+  setCasts: React.Dispatch<React.SetStateAction<Cast[]>>;
+  setDisplayedShows: React.Dispatch<React.SetStateAction<Show[]>>;
   setFavorites: React.Dispatch<React.SetStateAction<number[]>>;
-  setDisplayedShows: React.Dispatch<React.SetStateAction<Shows[]>>;
+  setGallery: React.Dispatch<React.SetStateAction<Gallery[]>>;
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
-  setShows: React.Dispatch<React.SetStateAction<Shows[]>>;
-  shows: Shows[];
+  setShows: React.Dispatch<React.SetStateAction<Show[]>>;
+  shows: Show[];
   toggleFavorite: (id: number) => void;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const AppContext = createContext<AppContextType>({
-  favorites: [],
-  isFavorite: () => false,
+  casts: [],
   displayedShows: [],
+  favorites: [],
+  gallery: [],
+  isFavorite: () => false,
   searchTerm: "",
-  setFavorites: () => [],
+  setCasts: () => [],
   setDisplayedShows: () => [],
+  setFavorites: () => [],
+  setGallery: () => [],
   setSearchTerm: () => [],
   setShows: () => [],
   toggleFavorite: () => {},
@@ -32,9 +41,11 @@ const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [favorites, setFavorites] = useState<number[]>([]);
-  const [shows, setShows] = useState<Shows[]>([]);
+  const [shows, setShows] = useState<Show[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [displayedShows, setDisplayedShows] = useState<Shows[]>([]);
+  const [displayedShows, setDisplayedShows] = useState<Show[]>([]);
+  const [casts, setCasts] = useState<Cast[]>([]);
+  const [gallery, setGallery] = useState<Gallery[]>([]);
 
   const toggleFavorite = (id: number) => {
     setFavorites((prevFavorites) => {
@@ -59,20 +70,24 @@ const AppContextProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const value = useMemo(
     () => ({
-      favorites,
-      toggleFavorite,
-      isFavorite,
+      casts,
       displayedShows,
+      favorites,
+      gallery,
+      isFavorite,
       searchTerm,
+      setCasts,
       setFavorites,
       setDisplayedShows,
+      setGallery,
       setSearchTerm,
       shows,
       setShows,
+      toggleFavorite,
     }),
     // no need to add isFavorites, this is just a function that uses favorites
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [favorites, displayedShows, searchTerm, shows],
+    [casts, displayedShows, favorites, gallery, searchTerm, shows],
   );
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
