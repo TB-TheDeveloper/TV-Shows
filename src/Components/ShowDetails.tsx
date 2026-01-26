@@ -149,7 +149,7 @@ const Gallery: React.FC<GalleryProps> = ({ showID }) => {
     // I only want to run this once on mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log("this is gallery:", gallery[8].resolutions?.medium);
+
   return (
     <Grid container spacing={2}>
       {gallery.map((image) => (

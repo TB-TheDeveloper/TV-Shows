@@ -5,13 +5,14 @@ import Button from "@mui/material/Button";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { AppContext } from "./AppContextProvider";
 
 const MenuBar: React.FC = () => {
-  const { searchTerm, setDisplayedShows, setSearchTerm, shows } =
+  const { setIsLoggedIn, searchTerm, setDisplayedShows, setSearchTerm, shows } =
     useContext(AppContext);
+  const navigate = useNavigate();
 
   const onSearch = (term: string) => {
     if (!term) {
@@ -75,10 +76,13 @@ const MenuBar: React.FC = () => {
         <Button
           color="inherit"
           className="opacity-05"
-          component={Link}
-          to="/login"
+          onClick={() => {
+            setIsLoggedIn(false);
+            localStorage.setItem("isLoggedIn", "false");
+            navigate("/", { replace: true });
+          }}
         >
-          Login/LoginOut
+          Log Out
         </Button>
       </Toolbar>
     </AppBar>

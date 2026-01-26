@@ -24,8 +24,6 @@ const Home: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log("shows in home: outside useeffect");
-  console.log("this is shows:", shows);
   return (
     <Grid container spacing={2} sx={{ marginTop: 12 }}>
       {!displayedShows.length ? (

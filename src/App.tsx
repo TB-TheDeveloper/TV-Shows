@@ -1,9 +1,13 @@
 import { Box, Card, Grid, Skeleton } from "@mui/material";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useContext } from "react";
 import { Route, Routes } from "react-router-dom";
 
-const Home = lazy(() => import("./Components/Home"));
+import { AppContext } from "./AppContextProvider";
+
 const Favorites = lazy(() => import("./Components/Favorites"));
+const Home = lazy(() => import("./Components/Home"));
+const LoginScreen = lazy(() => import("./Components/LoginScreen"));
+const ShowDetails = lazy(() => import("./Components/ShowDetails"));
 
 const ShowCardSkeleton = () => (
   <Card sx={{ width: 209, margin: 1 }}>
@@ -25,6 +29,8 @@ const LoadingFallback = () => (
 );
 
 const App = () => {
+  const { isLoggedIn } = useContext(AppContext);
+
   return (
     <Suspense
       fallback={
@@ -34,8 +40,12 @@ const App = () => {
       }
     >
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/favorites" element={<Favorites />} />
+        {!isLoggedIn && <Route path="/" element={<LoginScreen />} />}
+        {isLoggedIn && <Route path="/home" element={<Home />} />}
+        {isLoggedIn && <Route path="/favorites" element={<Favorites />} />}
+        {isLoggedIn && (
+          <Route path="/show/:id/:name" element={<ShowDetails />} />
+        )}
       </Routes>
     </Suspense>
   );
