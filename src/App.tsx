@@ -1,6 +1,6 @@
 import { Box, Card, Grid, Skeleton } from "@mui/material";
 import { lazy, Suspense, useContext } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 import { AppContext } from "./AppContextProvider";
 
@@ -30,7 +30,7 @@ const LoadingFallback = () => (
 
 const App = () => {
   const { isLoggedIn } = useContext(AppContext);
-
+  console.log("isLoggedIn in App.tsx:", isLoggedIn);
   return (
     <Suspense
       fallback={
@@ -40,12 +40,27 @@ const App = () => {
       }
     >
       <Routes>
-        {!isLoggedIn && <Route path="/" element={<LoginScreen />} />}
-        {isLoggedIn && <Route path="/home" element={<Home />} />}
-        {isLoggedIn && <Route path="/favorites" element={<Favorites />} />}
-        {isLoggedIn && (
-          <Route path="/show/:id/:name" element={<ShowDetails />} />
-        )}
+        {/* Public */}
+        <Route
+          path="/"
+          element={
+            isLoggedIn ? <Navigate to="/home" replace /> : <LoginScreen />
+          }
+        />
+
+        {/* Protected */}
+        <Route
+          path="/home"
+          element={isLoggedIn ? <Home /> : <Navigate to="/" replace />}
+        />
+        <Route
+          path="/favorites"
+          element={isLoggedIn ? <Favorites /> : <Navigate to="/" replace />}
+        />
+        <Route
+          path="/show/:id/:name"
+          element={isLoggedIn ? <ShowDetails /> : <Navigate to="/" replace />}
+        />
       </Routes>
     </Suspense>
   );

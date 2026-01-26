@@ -30,7 +30,7 @@ const ShowCard: React.FC<ShowCardProps> = ({ show }) => {
       </IconButton>
       <Box
         component={Link}
-        to={`show/${show.id}/${encodeURIComponent(show.name.toLowerCase().split(" ").join("-"))}`}
+        to={`/show/${show.id}/${encodeURIComponent(show.name.toLowerCase().split(" ").join("-"))}`}
         className="show-card-box"
       >
         <Typography variant="subtitle1" fontWeight="bold">

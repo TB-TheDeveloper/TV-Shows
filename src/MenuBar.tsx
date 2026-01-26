@@ -62,7 +62,12 @@ const MenuBar: React.FC = () => {
             }}
           />
         </Box>
-        <Button color="inherit" className="opacity-05" component={Link} to="/">
+        <Button
+          color="inherit"
+          className="opacity-05"
+          component={Link}
+          to="/home"
+        >
           Home
         </Button>
         <Button
